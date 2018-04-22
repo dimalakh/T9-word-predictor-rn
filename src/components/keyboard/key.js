@@ -4,6 +4,14 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native'
+import { connect } from 'react-redux'
+
+import { 
+  setCurrentLetter, 
+  addLetterToCurrentWord,
+  addPhraseLetters,
+  addWordToText
+} from '../../store/actions'
 
 class KeyComponent extends Component {
   constructor(props) {
@@ -27,41 +35,58 @@ class KeyComponent extends Component {
   handleKeyPress () {
     const { symbols } = this.props
 
-    console.log(symbols[this.counter])
+    this.props.setLetter(symbols[this.counter])
 
     if (!this.intervalId) {
       this.intervalId = setInterval(() => {
         this.counter += 1
-        if (this.title === '0') {
+        if (this.title === '0' && this.counter === 1) {
+          this.props.spacePress()
         } else {
           if (this.counter === symbols.length) {
             this.counter = 0
           }
-          console.log(symbols[this.counter])
+          this.props.setLetter(symbols[this.counter])
         }
       }, 500)
     }
   }
 
   handleKeyUp () {
+    console.log('keyUp', this.title, this.counter)
+    console.log(this.title === '0' && this.counter === 1)
     if (this.title === '0' && this.counter === 1) {
-      return
+      return this.reset()
     }
+    this.props.saveLetter(this.subtitle)
     this.reset()
   }
 
   render() {
     return <TouchableOpacity 
-    style={styles.keyWrapper}
-    onPressIn={this.handleKeyPress}
-    onPressOut={this.handleKeyUp}>
-        <Text>{ this.title }</Text>
-        <Text>{ this.subtitle }</Text>
+      style={styles.keyWrapper}
+      onPressIn={this.handleKeyPress}
+      onPressOut={this.handleKeyUp}
+    >
+      <Text>{ this.title }</Text>
+      <Text>{ this.subtitle }</Text>
     </TouchableOpacity>
   }
 }
 
-export default KeyComponent
+const mapDispatchToProps = dispatch => ({
+  spacePress: () => dispatch(addWordToText()),
+  setLetter: letter => dispatch(setCurrentLetter(letter)),
+  saveLetter: phraseLetters => {
+    dispatch(addPhraseLetters(phraseLetters))
+    dispatch(addLetterToCurrentWord())
+  }
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(KeyComponent)
 
 const styles = StyleSheet.create({
   keyWrapper: {

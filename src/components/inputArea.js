@@ -1,12 +1,17 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 
-const inputArea = () =>
+const inputArea = ({ text }) =>
   <View style={styles.inputAreaWrapper}>
-    <Text>Some text</Text>
+    <Text>{ text }</Text>
   </View>
 
-export default inputArea
+const mapStateToProps = state => ({
+  text: state.typedText + state.currentWord + state.currentLetter
+})
+
+export default connect(mapStateToProps)(inputArea)
 
 const styles = StyleSheet.create({
   inputAreaWrapper: {
