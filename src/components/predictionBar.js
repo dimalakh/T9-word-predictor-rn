@@ -1,10 +1,14 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { connect } from 'react-redux'
 
-const predictionBar = ({ predictedWords }) => {
+import { selectPredictedWord } from '../store/actions'
+
+const predictionBar = ({ predictedWords, selectPredictedWord }) => {
   const renderPredictedWords = () => predictedWords.map(word =>
-    <Text>{ word }</Text>
+    <TouchableWithoutFeedback onPress={() => selectPredictedWord(word)}>
+      <Text>{ word }</Text>
+    </TouchableWithoutFeedback>
   )
 
   if (!predictedWords.length) {
@@ -20,7 +24,11 @@ const mapStateToProps = state => ({
   predictedWords: state.predictedWords
 })
 
-export default connect(mapStateToProps)(predictionBar)
+const mapDispatchToProps = dispatch => ({
+  selectPredictedWord: word => dispatch(selectPredictedWord(word))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(predictionBar)
 
 const styles = StyleSheet.create({
   predictionBarWrapper: {

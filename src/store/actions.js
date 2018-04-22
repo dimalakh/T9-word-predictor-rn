@@ -24,6 +24,11 @@ export const setPredictedWords = predictedWords => ({
   payload: predictedWords
 })
 
+export const selectPredictedWord = word => ({
+  type: actionTypes.SELECT_PREDICTED_WORD,
+  payload: word
+})
+
 export const getPredictedWords = () => (dispatch, getState) => {
   const phraseLetters = getState().phraseLetters.join('')
   const phraseLength = getState().currentWord.length
