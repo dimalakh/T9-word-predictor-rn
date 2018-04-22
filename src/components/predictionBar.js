@@ -5,9 +5,11 @@ import { connect } from 'react-redux'
 import { selectPredictedWord } from '../store/actions'
 
 const predictionBar = ({ predictedWords, selectPredictedWord }) => {
-  const renderPredictedWords = () => predictedWords.map(word =>
-    <TouchableWithoutFeedback onPress={() => selectPredictedWord(word)}>
-      <Text>{ word }</Text>
+  const renderPredictedWords = () => predictedWords.map((word, index) =>
+    <TouchableWithoutFeedback key={index} onPress={() => selectPredictedWord(word)}>
+      <View>
+        <Text>{ word }</Text>
+      </View>
     </TouchableWithoutFeedback>
   )
 

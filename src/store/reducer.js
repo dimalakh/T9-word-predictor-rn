@@ -43,7 +43,8 @@ const keyboardReducer = (state = initialState, action) => {
         predictedWords: [],
         typedText: state.typedText + action.payload + ' ',
         currentLetter: '',
-        currentWord: ''
+        currentWord: '',
+        phraseLetters: []
       }
     default:
       return state
