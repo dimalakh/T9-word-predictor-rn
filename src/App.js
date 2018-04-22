@@ -5,13 +5,18 @@ import {
   Text,
   View
 } from 'react-native';
+
 import KeyboardComponent from './components/keyboard'
+import InputArea from './components/inputArea'
+import PredictionBar from './components/predictionBar'
 
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <InputArea />
+        <PredictionBar />
         <KeyboardComponent />
       </View>
     );
