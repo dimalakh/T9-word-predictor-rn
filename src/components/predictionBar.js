@@ -1,13 +1,26 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 
-const predictionBar = () => {
+const predictionBar = ({ predictedWords }) => {
+  const renderPredictedWords = () => predictedWords.map(word =>
+    <Text>{ word }</Text>
+  )
+
+  if (!predictedWords.length) {
+    return null
+  }
+
   return <View style={styles.predictionBarWrapper}>
-    <Text>Some text</Text>
+    {renderPredictedWords()}
   </View>
 }
 
-export default predictionBar
+const mapStateToProps = state => ({
+  predictedWords: state.predictedWords
+})
+
+export default connect(mapStateToProps)(predictionBar)
 
 const styles = StyleSheet.create({
   predictionBarWrapper: {

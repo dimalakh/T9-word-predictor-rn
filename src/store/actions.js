@@ -1,4 +1,5 @@
 import * as actionTypes from '../constants/actionTypes'
+import { predictWords } from '../services'
 
 export const setCurrentLetter = currentLetter => ({
   type: actionTypes.SET_CURRENT_LETTER,
@@ -15,5 +16,19 @@ export const addPhraseLetters = phraseLetters => ({
 })
 
 export const addWordToText = () => ({
-  type: actionTypes.ADD_WORD_TO_TEXT,
+  type: actionTypes.ADD_WORD_TO_TEXT
 })
+
+export const setPredictedWords = predictedWords => ({
+  type: actionTypes.SET_PREDICTED_WORDS,
+  payload: predictedWords
+})
+
+export const getPredictedWords = () => (dispatch, getState) => {
+  const phraseLetters = getState().phraseLetters.join('')
+  const phraseLength = getState().currentWord.length
+  predictWords(phraseLetters, phraseLength)
+    .then(data => {
+      dispatch(setPredictedWords(data.realWords))
+    })
+}

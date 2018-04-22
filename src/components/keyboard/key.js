@@ -10,7 +10,8 @@ import {
   setCurrentLetter, 
   addLetterToCurrentWord,
   addPhraseLetters,
-  addWordToText
+  addWordToText,
+  getPredictedWords
 } from '../../store/actions'
 
 class KeyComponent extends Component {
@@ -53,8 +54,6 @@ class KeyComponent extends Component {
   }
 
   handleKeyUp () {
-    console.log('keyUp', this.title, this.counter)
-    console.log(this.title === '0' && this.counter === 1)
     if (this.title === '0' && this.counter === 1) {
       return this.reset()
     }
@@ -80,6 +79,7 @@ const mapDispatchToProps = dispatch => ({
   saveLetter: phraseLetters => {
     dispatch(addPhraseLetters(phraseLetters))
     dispatch(addLetterToCurrentWord())
+    dispatch(getPredictedWords())
   }
 })
 

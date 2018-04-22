@@ -23,13 +23,19 @@ const keyboardReducer = (state = initialState, action) => {
         ...state,
         typedText: state.typedText + state.currentWord + ' ',
         currentWord: '',
-        currentLetter: ''
+        currentLetter: '',
+        predictedWords: []
       }
     case actionTypes.ADD_PHRASE_LETTERS:
       return {
         ...state,
         phraseLetters: [ 
           ...new Set([ ...state.phraseLetters, action.payload ]) ]
+      }
+    case actionTypes.SET_PREDICTED_WORDS:
+      return {
+        ...state,
+        predictedWords: action.payload 
       }
     default:
       return state
