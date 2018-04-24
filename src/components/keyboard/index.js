@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 
 import Key from './key'
+import variables from '../../constants/variables'
 
 const KeyboardComponent = () => (
   <View style={styles.keyboardWrapper}>
@@ -32,6 +33,8 @@ export default KeyboardComponent
 const styles = StyleSheet.create({
   keyboardWrapper: {
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    borderTopWidth: 1,
+    borderTopColor: variables.grey
   }
 })
