@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { selectPredictedWord } from '../store/actions'
 import variables from '../constants/variables'
 
-const predictionBar = ({ predictedWords, selectPredictedWord }) => {
+const PredictionBar = ({ predictedWords, selectPredictedWord }) => {
   const renderPredictedWords = () => predictedWords.map((word, index) =>
     <TouchableWithoutFeedback key={index} onPress={() => selectPredictedWord(word)}>
       <View style={styles.predictedWord}>
@@ -23,6 +24,11 @@ const predictionBar = ({ predictedWords, selectPredictedWord }) => {
   </View>
 }
 
+PredictionBar.propTypes = {
+  predictedWords: PropTypes.array.isRequired,
+  selectPredictedWord: PropTypes.func.isRequired
+}
+
 const mapStateToProps = state => ({
   predictedWords: state.predictedWords
 })
@@ -31,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
   selectPredictedWord: word => dispatch(selectPredictedWord(word))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(predictionBar)
+export default connect(mapStateToProps, mapDispatchToProps)(PredictionBar)
 
 const styles = StyleSheet.create({
   predictionBarWrapper: {

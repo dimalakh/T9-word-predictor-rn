@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
-  Platform,
   StyleSheet,
-  Text,
   View
-} from 'react-native';
+} from 'react-native'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 
@@ -18,7 +16,7 @@ import logger from 'redux-logger'
 const createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore)
 const store = createStoreWithMiddleware(reducer)
 export default class App extends Component {
-  render() {
+  render () {
     return (
       <Provider store={store}>
         <View style={styles.container}>
@@ -27,7 +25,7 @@ export default class App extends Component {
           <KeyboardComponent />
         </View>
       </Provider>
-    );
+    )
   }
 }
 
@@ -36,6 +34,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   }
-});
+})

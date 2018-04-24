@@ -7,7 +7,7 @@ export const setCurrentLetter = currentLetter => ({
 })
 
 export const addLetterToCurrentWord = () => ({
-  type: actionTypes.ADD_LETTER_TO_CURRENT_WORD,
+  type: actionTypes.ADD_LETTER_TO_CURRENT_WORD
 })
 
 export const addPhraseLetters = phraseLetters => ({
@@ -33,7 +33,7 @@ export const removeLastCharacter = () => ({
   type: actionTypes.REMOVE_LAST_CHARACTER
 })
 
-export  const setFetchError = err => ({
+export const setFetchError = err => ({
   type: actionTypes.SET_FETCH_ERROR,
   payload: err
 })

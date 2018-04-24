@@ -1,17 +1,22 @@
 import React from 'react'
-import { ScrollView, View, Text, StyleSheet } from 'react-native'
+import { ScrollView, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-const inputArea = ({ text }) =>
+const InputArea = ({ text }) =>
   <ScrollView style={styles.inputAreaWrapper}>
     <Text style={styles.inputAreaText}>{ text }</Text>
   </ScrollView>
+
+InputArea.propTypes = {
+  text: PropTypes.string.isRequired
+}
 
 const mapStateToProps = state => ({
   text: state.typedText + state.currentWord + state.currentLetter
 })
 
-export default connect(mapStateToProps)(inputArea)
+export default connect(mapStateToProps)(InputArea)
 
 const styles = StyleSheet.create({
   inputAreaWrapper: {

@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import { 
+import {
   StyleSheet,
   Text,
   TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import variables from '../../constants/variables'
-import { 
-  setCurrentLetter, 
+import {
+  setCurrentLetter,
   addLetterToCurrentWord,
   addPhraseLetters,
   addWordToText,
@@ -17,7 +18,7 @@ import {
 } from '../../store/actions'
 
 class KeyComponent extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.counter = 0
     this.title = this.props.symbols.substring(0, 1)
@@ -39,18 +40,18 @@ class KeyComponent extends Component {
   }
 
   handleKeyPress () {
-    const { symbols } = this.props
-    
+    const { symbols, setLetter, onSpacePress, onRemovePress } = this.props
+
     this.setState({ isPressed: true })
-    this.props.setLetter(symbols[this.counter])
+    setLetter(symbols[this.counter])
 
     if (!this.intervalId) {
       this.intervalId = setInterval(() => {
         this.counter += 1
-        if (this.title === '0' && this.counter === 1) {
-          this.props.onSpacePress()
+        if (this.title === '0') {
+          onSpacePress()
         } else if (this.title === '#') {
-          this.props.onRemovePress()
+          onRemovePress()
         } else {
           if (this.counter === symbols.length) {
             this.counter = 0
@@ -72,8 +73,8 @@ class KeyComponent extends Component {
     this.reset()
   }
 
-  render() {
-    const renderSubTitle = () => 
+  render () {
+    const renderSubTitle = () =>
       this.subtitle && <Text style={styles.keySubtitle}>{ this.subtitle }</Text>
 
     return <TouchableOpacity
@@ -99,6 +100,14 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
+KeyComponent.propTypes = {
+  saveLetter: PropTypes.func.isRequired,
+  setLetter: PropTypes.func.isRequired,
+  onRemovePress: PropTypes.func,
+  onSpacePress: PropTypes.func,
+  symbols: PropTypes.string.isRequired
+}
+
 export default connect(
   null,
   mapDispatchToProps
@@ -120,7 +129,7 @@ const styles = StyleSheet.create({
     backgroundColor: variables.hover
   },
   keyTitle: {
-    fontSize: 26,
+    fontSize: 26
   },
   keySubtitle: {
     fontSize: 13
