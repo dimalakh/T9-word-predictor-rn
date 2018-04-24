@@ -5,7 +5,8 @@ const initialState = {
   currentWord: '',
   currentLetter: '',
   phraseLetters: [],
-  predictedWords: []
+  predictedWords: [],
+  fetchError: null
 }
 
 const keyboardReducer = (state = initialState, action) => {
@@ -35,7 +36,8 @@ const keyboardReducer = (state = initialState, action) => {
     case actionTypes.SET_PREDICTED_WORDS:
       return {
         ...state,
-        predictedWords: action.payload 
+        predictedWords: action.payload,
+        fetchError: null
       }
     case actionTypes.SELECT_PREDICTED_WORD:
       return {
@@ -44,7 +46,12 @@ const keyboardReducer = (state = initialState, action) => {
         typedText: state.typedText + action.payload + ' ',
         currentLetter: '',
         currentWord: '',
-        phraseLetters: []
+        phraseLetters: [],
+      }
+    case actionTypes.SET_FETCH_ERROR:
+      return {
+        ...state,
+        fetchError: action.payload
       }
     default:
       return state

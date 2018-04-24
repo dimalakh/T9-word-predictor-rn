@@ -29,11 +29,20 @@ export const selectPredictedWord = word => ({
   payload: word
 })
 
+export  const setFetchError = err => ({
+  type: actionTypes.SET_FETCH_ERROR,
+  payload: err
+})
+
 export const getPredictedWords = () => (dispatch, getState) => {
   const phraseLetters = getState().phraseLetters.join('')
   const phraseLength = getState().currentWord.length
+
   predictWords(phraseLetters, phraseLength)
-    .then(data => {
-      dispatch(setPredictedWords(data.realWords))
+    .then(({ data }) => {
+      dispatch(setPredictedWords(data))
+    })
+    .catch(err => {
+      dispatch(setFetchError(err))
     })
 }
