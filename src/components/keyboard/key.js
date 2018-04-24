@@ -12,7 +12,8 @@ import {
   addLetterToCurrentWord,
   addPhraseLetters,
   addWordToText,
-  getPredictedWords
+  getPredictedWords,
+  removeLastCharacter
 } from '../../store/actions'
 
 class KeyComponent extends Component {
@@ -47,7 +48,9 @@ class KeyComponent extends Component {
       this.intervalId = setInterval(() => {
         this.counter += 1
         if (this.title === '0' && this.counter === 1) {
-          this.props.spacePress()
+          this.props.onSpacePress()
+        } else if (this.title === '#') {
+          this.props.onRemovePress()
         } else {
           if (this.counter === symbols.length) {
             this.counter = 0
@@ -86,7 +89,8 @@ class KeyComponent extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  spacePress: () => dispatch(addWordToText()),
+  onSpacePress: () => dispatch(addWordToText()),
+  onRemovePress: () => dispatch(removeLastCharacter()),
   setLetter: letter => dispatch(setCurrentLetter(letter)),
   saveLetter: phraseLetters => {
     dispatch(addPhraseLetters(phraseLetters))

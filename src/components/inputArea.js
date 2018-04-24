@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 const inputArea = ({ text }) =>
-  <View style={styles.inputAreaWrapper}>
-    <Text>{ text }</Text>
-  </View>
+  <ScrollView style={styles.inputAreaWrapper}>
+    <Text style={styles.inputAreaText}>{ text }</Text>
+  </ScrollView>
 
 const mapStateToProps = state => ({
   text: state.typedText + state.currentWord + state.currentLetter
@@ -20,5 +20,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     width: '100%',
     backgroundColor: '#fff'
+  },
+  inputAreaText: {
+    fontSize: 40
   }
 })

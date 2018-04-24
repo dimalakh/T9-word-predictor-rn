@@ -13,6 +13,17 @@ const keyboardReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_CURRENT_LETTER:
       return { ...state, currentLetter: action.payload}
+    case actionTypes.REMOVE_LAST_CHARACTER:
+      const userInput = state.typedText + state.currentWord + state.currentLetter
+      const deleteStep = state.currentLetter ? 2 : 1
+
+      return {
+        ...state,
+        typedText: userInput.substring(0, userInput.length - deleteStep),
+        currentWord: '',
+        currentLetter: '',
+        predictedWords: []
+      }
     case actionTypes.ADD_LETTER_TO_CURRENT_WORD:
       return { 
         ...state,
@@ -31,7 +42,8 @@ const keyboardReducer = (state = initialState, action) => {
       return {
         ...state,
         phraseLetters: [ 
-          ...new Set([ ...state.phraseLetters, action.payload ]) ]
+          ...new Set([ ...state.phraseLetters, action.payload ]) 
+        ]
       }
     case actionTypes.SET_PREDICTED_WORDS:
       return {

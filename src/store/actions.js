@@ -29,6 +29,10 @@ export const selectPredictedWord = word => ({
   payload: word
 })
 
+export const removeLastCharacter = () => ({
+  type: actionTypes.REMOVE_LAST_CHARACTER
+})
+
 export  const setFetchError = err => ({
   type: actionTypes.SET_FETCH_ERROR,
   payload: err
