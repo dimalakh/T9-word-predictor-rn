@@ -10,9 +10,9 @@ export const addLetterToCurrentWord = () => ({
   type: actionTypes.ADD_LETTER_TO_CURRENT_WORD
 })
 
-export const addPhraseLetters = phraseLetters => ({
-  type: actionTypes.ADD_PHRASE_LETTERS,
-  payload: phraseLetters
+export const addPhraseCode = code => ({
+  type: actionTypes.ADD_PHRASE_CODE,
+  payload: code
 })
 
 export const addWordToText = () => ({
@@ -39,14 +39,13 @@ export const setFetchError = err => ({
 })
 
 export const getPredictedWords = () => (dispatch, getState) => {
-  const phraseLetters = getState().phraseLetters.join('')
-  const phraseLength = getState().currentWord.length
+  const phraseCode = getState().phraseCode.replace(/\D/g, '')
 
-  predictWords(phraseLetters, phraseLength)
+  predictWords(phraseCode)
     .then(({ data }) => {
       dispatch(setPredictedWords(data))
     })
     .catch(err => {
-      dispatch(setFetchError(err))
+      dispatch(setFetchError(err.message))
     })
 }

@@ -11,7 +11,7 @@ import variables from '../../constants/variables'
 import {
   setCurrentLetter,
   addLetterToCurrentWord,
-  addPhraseLetters,
+  addPhraseCode,
   addWordToText,
   getPredictedWords,
   removeLastCharacter
@@ -69,7 +69,7 @@ class KeyComponent extends Component {
       return this.reset()
     }
 
-    this.props.saveLetter(this.subtitle)
+    this.props.saveLetter(this.title)
     this.reset()
   }
 
@@ -93,8 +93,8 @@ const mapDispatchToProps = dispatch => ({
   onSpacePress: () => dispatch(addWordToText()),
   onRemovePress: () => dispatch(removeLastCharacter()),
   setLetter: letter => dispatch(setCurrentLetter(letter)),
-  saveLetter: phraseLetters => {
-    dispatch(addPhraseLetters(phraseLetters))
+  saveLetter: phraseCode => {
+    dispatch(addPhraseCode(phraseCode))
     dispatch(addLetterToCurrentWord())
     dispatch(getPredictedWords())
   }

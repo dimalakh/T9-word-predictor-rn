@@ -4,7 +4,7 @@ const initialState = {
   typedText: '',
   currentWord: '',
   currentLetter: '',
-  phraseLetters: [],
+  phraseCode: '',
   predictedWords: [],
   fetchError: null
 }
@@ -22,7 +22,8 @@ const keyboardReducer = (state = initialState, action) => {
         typedText: userInput.substring(0, userInput.length - deleteStep),
         currentWord: '',
         currentLetter: '',
-        predictedWords: []
+        predictedWords: [],
+        phraseCode: ''
       }
     case actionTypes.ADD_LETTER_TO_CURRENT_WORD:
       return {
@@ -36,14 +37,13 @@ const keyboardReducer = (state = initialState, action) => {
         typedText: state.typedText + state.currentWord + ' ',
         currentWord: '',
         currentLetter: '',
+        phraseCode: '',
         predictedWords: []
       }
-    case actionTypes.ADD_PHRASE_LETTERS:
+    case actionTypes.ADD_PHRASE_CODE:
       return {
         ...state,
-        phraseLetters: [
-          ...new Set([ ...state.phraseLetters, action.payload ])
-        ]
+        phraseCode: state.phraseCode + action.payload
       }
     case actionTypes.SET_PREDICTED_WORDS:
       return {
@@ -58,7 +58,7 @@ const keyboardReducer = (state = initialState, action) => {
         typedText: state.typedText + action.payload + ' ',
         currentLetter: '',
         currentWord: '',
-        phraseLetters: []
+        phraseCode: ''
       }
     case actionTypes.SET_FETCH_ERROR:
       return {
